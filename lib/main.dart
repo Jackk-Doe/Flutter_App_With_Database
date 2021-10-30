@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_database/screens/form_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -37,8 +38,18 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           title: Text(widget.title),
           actions: [
-            // Add Icon Button to AppBar
-            IconButton(onPressed: null, icon: Icon(Icons.menu))
+            /// Add Icon Button to AppBar
+            IconButton(
+              icon: Icon(Icons.menu),
+
+              /// Change page when pressed Button
+              onPressed: () {
+                /// Push the returning Widget to a Navigator Widget's stack
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return FormScreen();
+                }));
+              },
+            )
           ],
         ),
         body: Container());
