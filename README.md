@@ -1,6 +1,6 @@
 # flutter_database
 
-A new Flutter project.
+Learning resource : https://www.youtube.com/watch?v=xODay-kU0R8&list=PLltVQYLz1BMBUgyhxZFA31of-EKjazC8G&index=2
 
 ## Getting Started
 
