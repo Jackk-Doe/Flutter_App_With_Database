@@ -40,12 +40,13 @@ class _MyHomePageState extends State<MyHomePage> {
           actions: [
             /// Add Icon Button to AppBar
             IconButton(
-              icon: Icon(Icons.menu),
+              icon: Icon(Icons.add_shopping_cart),
 
               /// Change page when pressed Button
               onPressed: () {
                 /// Push the returning Widget to a Navigator Widget's stack
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  /// Return FormScreen Widget (form_screen.dart)
                   return FormScreen();
                 }));
               },
