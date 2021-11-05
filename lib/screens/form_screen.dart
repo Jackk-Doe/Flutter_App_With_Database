@@ -29,7 +29,10 @@ class FormScreen extends StatelessWidget {
                   keyboardType: TextInputType.number,
                 ),
                 OutlinedButton(
-                  child: Text("Adding"),
+                  child: Text(
+                    "Adding",
+                    style: TextStyle(color: Colors.blue),
+                  ),
                   style: TextButton.styleFrom(primary: Colors.green),
                   onPressed: () {
                     /// Back to first screen

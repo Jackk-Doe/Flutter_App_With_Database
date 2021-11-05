@@ -1,7 +1,11 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_database/providers/transaction_provider.dart';
 import 'package:flutter_database/screens/form_screen.dart';
+import 'package:provider/provider.dart';
+
+import 'models/Transaction.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,12 +16,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    /*
+    Use MultiProvider, incase of dealing with multiple Provider
+    Connecting Provider (TransactionProvider) with main.dart, through MultiProvider
+    */
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) {
+          return TransactionProvider();
+        })
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const MyHomePage(title: 'Account Application'),
       ),
-      home: const MyHomePage(title: 'Account Application'),
     );
   }
 }
@@ -53,32 +68,45 @@ class _MyHomePageState extends State<MyHomePage> {
             )
           ],
         ),
-        body: ListView.builder(
-            itemCount: 4,
-            itemBuilder: (context, int index) {
-              /// Card Widget (Card shape box)
-              return Card(
-                /// Card's shadow density
-                elevation: 5,
+        /*
+        Consumer take data (or listen to changing data) from Provider,
+        then return Widget from the given data
+        */
+        body: Consumer(
+          /// The below Provider linking to Provider in <line>line 24<line>
+          builder: (context, TransactionProvider provider, child) {
+            return ListView.builder(
+                itemCount: provider.transactions.length,
+                itemBuilder: (context, int index) {
+                  /// Get reference to each Transaction from Provider
+                  Transaction data = provider.transactions[index];
 
-                /// Empty gap between each Card
-                margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+                  /// Card Widget (Card shape box)
+                  return Card(
+                    /// Card's shadow density
+                    elevation: 5,
 
-                /// Cover ListTile with Card Widget
-                child: ListTile(
-                  leading: CircleAvatar(
-                    radius: 30,
+                    /// Empty gap between each Card
+                    margin:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
 
-                    /// Used FittedBox Widget within CircleAvatar Widget
-                    /// to control text formating (scaling)
-                    child: FittedBox(
-                      child: Text("50000"),
+                    /// Cover ListTile with Card Widget
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        radius: 30,
+
+                        /// Used FittedBox Widget within CircleAvatar Widget
+                        /// to control text formating (scaling)
+                        child: FittedBox(
+                          child: Text(data.amount.toString()),
+                        ),
+                      ),
+                      title: Text(data.title),
+                      subtitle: Text(data.date.toString()),
                     ),
-                  ),
-                  title: Text("Menu"),
-                  subtitle: Text("02/01/2021"),
-                ),
-              );
-            }));
+                  );
+                });
+          },
+        ));
   }
 }
