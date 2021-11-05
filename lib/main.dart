@@ -38,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           title: Text(widget.title),
           actions: [
-            /// Add Icon Button to AppBar
+            /// Add Icon Button to AppBar (Top-Right)
             IconButton(
               icon: Icon(Icons.add_shopping_cart),
 
@@ -53,6 +53,32 @@ class _MyHomePageState extends State<MyHomePage> {
             )
           ],
         ),
-        body: Container());
+        body: ListView.builder(
+            itemCount: 4,
+            itemBuilder: (context, int index) {
+              /// Card Widget (Card shape box)
+              return Card(
+                /// Card's shadow density
+                elevation: 5,
+
+                /// Empty gap between each Card
+                margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+
+                /// Cover ListTile with Card Widget
+                child: ListTile(
+                  leading: CircleAvatar(
+                    radius: 30,
+
+                    /// Used FittedBox Widget within CircleAvatar Widget
+                    /// to control text formating (scaling)
+                    child: FittedBox(
+                      child: Text("50000"),
+                    ),
+                  ),
+                  title: Text("Menu"),
+                  subtitle: Text("02/01/2021"),
+                ),
+              );
+            }));
   }
 }
