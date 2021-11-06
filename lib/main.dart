@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_database/providers/transaction_provider.dart';
 import 'package:flutter_database/screens/form_screen.dart';
 import 'package:provider/provider.dart';
-
-import 'models/Transaction.dart';
+import 'package:flutter_database/models/transaction.dart';
 
 void main() {
   runApp(const MyApp());

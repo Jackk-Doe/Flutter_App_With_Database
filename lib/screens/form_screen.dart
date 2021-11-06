@@ -2,12 +2,22 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_database/models/transaction.dart';
+import 'package:flutter_database/providers/transaction_provider.dart';
+import 'package:provider/provider.dart';
 
 class FormScreen extends StatelessWidget {
   // const FormScreen({Key? key}) : super(key: key);
 
   /// Use to check (validate) State in Form Widget
   final formKey = GlobalKey<FormState>();
+
+  /// Controller :
+  /// Store value from <code>title<code> TextFormField Widget
+  final titleController = TextEditingController();
+
+  /// Store value from <code>amout<code> TextFormField Widget
+  final amountController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +37,9 @@ class FormScreen extends StatelessWidget {
               children: [
                 /// Item name Textfield
                 TextFormField(
-                  decoration: new InputDecoration(labelText: "Name"),
+                  decoration: new InputDecoration(labelText: "Title"),
                   autofocus: true,
+                  controller: titleController,
                   validator: (var str) {
                     /// If Text field is empty, return Error string
                     if (str!.isEmpty) {
@@ -44,6 +55,7 @@ class FormScreen extends StatelessWidget {
                 TextFormField(
                   decoration: new InputDecoration(labelText: "Money Amount"),
                   keyboardType: TextInputType.number,
+                  controller: amountController,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Please Enter Item price";
@@ -63,6 +75,22 @@ class FormScreen extends StatelessWidget {
                     /// If the written data has validated OK,
                     /// Else if unvalidated, show Error string
                     if (formKey.currentState!.validate()) {
+                      /// Get user inputed values (from Controller)
+                      var title = titleController.text;
+                      var amount = titleController.text;
+
+                      /// Create a new statement
+                      Transaction newStatement = Transaction(
+                          title: title, amount: amount, date: DateTime.now());
+
+                      /// Call Provider
+                      TransactionProvider provider =
+                          Provider.of<TransactionProvider>(context,
+                              listen: false);
+
+                      /// Add the new statement to Provider
+                      provider.addTransaction(newStatement);
+
                       /// Back to first screen
                       Navigator.pop(context);
                     }

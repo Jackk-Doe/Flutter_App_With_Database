@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_database/models/Transaction.dart';
+import 'package:flutter_database/models/transaction.dart';
 
 /*
 This class will send out notify to Consumer,
@@ -8,10 +8,10 @@ when data (Transaction) changed
 class TransactionProvider with ChangeNotifier {
   /// Test data set
   List<Transaction> transactions = [
-    Transaction("Book", 15, DateTime.now()),
-    Transaction("Shirt", 40, DateTime.now()),
-    Transaction("Jean", 50, DateTime.now()),
-    Transaction("Watch", 333, DateTime.now())
+    Transaction(title: "Shirt", amount: 40, date: DateTime.now()),
+    Transaction(title: "Book", amount: 15, date: DateTime.now()),
+    Transaction(title: "Jean", amount: 50, date: DateTime.now()),
+    Transaction(title: "Watch", amount: 333, date: DateTime.now())
   ];
 
   List<Transaction> getTransaction() {
@@ -19,6 +19,11 @@ class TransactionProvider with ChangeNotifier {
   }
 
   void addTransaction(Transaction statement) {
-    transactions.add(statement);
+    /// Add new statement to front
+    transactions.insert(0, statement);
+    /*
+    Notify Consumer (reload), that data in Provider has changed
+    */
+    notifyListeners();
   }
 }
