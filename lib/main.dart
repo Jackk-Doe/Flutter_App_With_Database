@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_database/providers/transaction_provider.dart';
 import 'package:flutter_database/screens/form_screen.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_database/models/transaction.dart';
 
@@ -74,37 +75,50 @@ class _MyHomePageState extends State<MyHomePage> {
         body: Consumer(
           /// The below Provider linking to Provider in <line>line 24<line>
           builder: (context, TransactionProvider provider, child) {
-            return ListView.builder(
-                itemCount: provider.transactions.length,
-                itemBuilder: (context, int index) {
-                  /// Get reference to each Transaction from Provider
-                  Transaction data = provider.transactions[index];
+            /// Count how many items, do the transaction in Provider
+            var count = provider.transactions.length;
 
-                  /// Card Widget (Card shape box)
-                  return Card(
-                    /// Card's shadow density
-                    elevation: 5,
+            /// If transaction in Provider is empty
+            if (count <= 0) {
+              return Center(
+                  child: Text(
+                "Empty Transaction",
+                style: TextStyle(fontSize: 35),
+              ));
+            } else {
+              return ListView.builder(
+                  itemCount: provider.transactions.length,
+                  itemBuilder: (context, int index) {
+                    /// Get reference to each Transaction from Provider
+                    Transaction data = provider.transactions[index];
 
-                    /// Empty gap between each Card
-                    margin:
-                        const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+                    /// Card Widget (Card shape box)
+                    return Card(
+                      /// Card's shadow density
+                      elevation: 5,
 
-                    /// Cover ListTile with Card Widget
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        radius: 30,
+                      /// Empty gap between each Card
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 5),
 
-                        /// Used FittedBox Widget within CircleAvatar Widget
-                        /// to control text formating (scaling)
-                        child: FittedBox(
-                          child: Text(data.amount.toString()),
+                      /// Cover ListTile with Card Widget
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          radius: 30,
+
+                          /// Used FittedBox Widget within CircleAvatar Widget
+                          /// to control text formating (scaling)
+                          child: FittedBox(
+                            child: Text(data.amount.toString()),
+                          ),
                         ),
+                        title: Text(data.title),
+                        subtitle: Text(
+                            DateFormat("dd/MM/yyy  EEE").format(data.date)),
                       ),
-                      title: Text(data.title),
-                      subtitle: Text(data.date.toString()),
-                    ),
-                  );
-                });
+                    );
+                  });
+            }
           },
         ));
   }

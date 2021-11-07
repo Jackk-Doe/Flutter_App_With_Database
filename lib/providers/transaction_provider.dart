@@ -8,10 +8,11 @@ when data (Transaction) changed
 class TransactionProvider with ChangeNotifier {
   /// Test data set
   List<Transaction> transactions = [
-    Transaction(title: "Shirt", amount: 40, date: DateTime.now()),
-    Transaction(title: "Book", amount: 15, date: DateTime.now()),
-    Transaction(title: "Jean", amount: 50, date: DateTime.now()),
-    Transaction(title: "Watch", amount: 333, date: DateTime.now())
+    /* Empty the List */
+    // Transaction(title: "Shirt", amount: 40, date: DateTime.now()),
+    // Transaction(title: "Book", amount: 15, date: DateTime.now()),
+    // Transaction(title: "Jean", amount: 50, date: DateTime.now()),
+    // Transaction(title: "Watch", amount: 333, date: DateTime.now())
   ];
 
   List<Transaction> getTransaction() {
@@ -21,6 +22,7 @@ class TransactionProvider with ChangeNotifier {
   void addTransaction(Transaction statement) {
     /// Add new statement to front
     transactions.insert(0, statement);
+
     /*
     Notify Consumer (reload), that data in Provider has changed
     */
