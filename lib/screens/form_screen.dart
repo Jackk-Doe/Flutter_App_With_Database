@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_database/models/transaction.dart';
+import 'package:flutter_database/models/transactions.dart';
 import 'package:flutter_database/providers/transaction_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -77,10 +77,10 @@ class FormScreen extends StatelessWidget {
                     if (formKey.currentState!.validate()) {
                       /// Get user inputed values (from Controller)
                       var title = titleController.text;
-                      var amount = titleController.text;
+                      var amount = amountController.text;
 
                       /// Create a new statement
-                      Transaction newStatement = Transaction(
+                      Transactions newStatement = Transactions(
                           title: title, amount: amount, date: DateTime.now());
 
                       /// Call Provider

@@ -5,7 +5,7 @@ import 'package:flutter_database/providers/transaction_provider.dart';
 import 'package:flutter_database/screens/form_screen.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_database/models/transaction.dart';
+import 'package:flutter_database/models/transactions.dart';
 
 void main() {
   runApp(const MyApp());
@@ -48,6 +48,14 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
+  void initState() {
+    super.initState();
+
+    /// Tell Provider to get data from DataBase, also notify Consumer
+    Provider.of<TransactionProvider>(context, listen: false).initData();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -78,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
             /// Count how many items, do the transaction in Provider
             var count = provider.transactions.length;
 
-            /// If transaction in Provider is empty
+            /// If transactions(list) in Provider is empty
             if (count <= 0) {
               return Center(
                   child: Text(
@@ -90,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   itemCount: provider.transactions.length,
                   itemBuilder: (context, int index) {
                     /// Get reference to each Transaction from Provider
-                    Transaction data = provider.transactions[index];
+                    Transactions data = provider.transactions[index];
 
                     /// Card Widget (Card shape box)
                     return Card(
