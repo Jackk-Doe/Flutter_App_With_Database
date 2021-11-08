@@ -34,7 +34,7 @@ class FormScreen extends StatelessWidget {
             /// Assign FormState Object to this Form Widget
             key: formKey,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              // crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 /// Item name Textfield
                 TextFormField(
@@ -71,7 +71,9 @@ class FormScreen extends StatelessWidget {
                     "Adding",
                     style: TextStyle(color: Colors.blue),
                   ),
-                  style: TextButton.styleFrom(primary: Colors.green),
+                  style: TextButton.styleFrom(
+                    primary: Colors.green,
+                  ),
                   onPressed: () {
                     /// If the written data has validated OK,
                     /// Else if unvalidated, show Error string
@@ -92,14 +94,21 @@ class FormScreen extends StatelessWidget {
                       /// Add the new statement to Provider
                       provider.addTransaction(newStatement);
 
-                      /// Back to MyHomePage (in main.dart) (NOTE : Not a proper way)
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              fullscreenDialog: true,
-                              builder: (context) {
-                                return MyHomePage();
-                              }));
+                      /*
+                      Back to MyHomePage      (NOTE : NOT A EFFICIENT WAY)
+                      */
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         fullscreenDialog: true,
+                      //         builder: (context) {
+                      //           return MyHomePage();
+                      //         }));
+
+                      /*
+                      Change Tab to MyHomePage,     (NOTE: A BETTER WAY)
+                      */
+                      DefaultTabController.of(context)!.animateTo(0);
                     }
                   },
                 )
