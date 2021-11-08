@@ -21,7 +21,7 @@ class TransactionProvider with ChangeNotifier {
   }
 
   /*
-  Call this method, when start running App
+  Call this method, when START running App
   */
   void initData() async {
     /// Load data from DataBase

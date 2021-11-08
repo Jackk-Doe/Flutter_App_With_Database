@@ -50,7 +50,7 @@ class TransactionDB {
     var store = intMapStoreFactory.store("expense");
 
     /// Store statement(data) to Database, through Store, in JSON format
-    /// When done, return stored data key ID
+    /// When done, return stored data key ID of new added item
     var keyID = store.add(db, {
       "title": statement.title,
       "amount": statement.amount,
@@ -70,7 +70,13 @@ class TransactionDB {
 
     /// Get all from Database,
     /// Return in List of SnapShot
-    var snapshot = await store.find(db);
+    var snapshot = await store.find(db,
+
+        /// Sort the given SnapShot,
+        /// by KeyID (Field.key)
+        /// false :  New to Old   ||   More to Less
+        /// true  :  Old to New   ||   Less to More
+        finder: Finder(sortOrders: [SortOrder(Field.key, false)]));
 
     // Return this List
     List<Transactions> transactionList = [];
@@ -80,6 +86,8 @@ class TransactionDB {
           amount: record["amount"],
           date: DateTime.parse(record["date"].toString())));
     }
+
+    db.close();
 
     return transactionList;
   }
