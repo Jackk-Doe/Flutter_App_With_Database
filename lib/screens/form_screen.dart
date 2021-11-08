@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_database/main.dart';
 import 'package:flutter_database/models/transactions.dart';
 import 'package:flutter_database/providers/transaction_provider.dart';
 import 'package:provider/provider.dart';
@@ -38,7 +39,7 @@ class FormScreen extends StatelessWidget {
                 /// Item name Textfield
                 TextFormField(
                   decoration: new InputDecoration(labelText: "Title"),
-                  autofocus: true,
+                  autofocus: false,
                   controller: titleController,
                   validator: (var str) {
                     /// If Text field is empty, return Error string
@@ -91,8 +92,14 @@ class FormScreen extends StatelessWidget {
                       /// Add the new statement to Provider
                       provider.addTransaction(newStatement);
 
-                      /// Back to first screen
-                      Navigator.pop(context);
+                      /// Back to MyHomePage (in main.dart) (NOTE : Not a proper way)
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              fullscreenDialog: true,
+                              builder: (context) {
+                                return MyHomePage();
+                              }));
                     }
                   },
                 )
