@@ -1,4 +1,4 @@
-# flutter_database
+# flutter_with_indivice_database
 
 Learning resource : https://www.youtube.com/watch?v=xODay-kU0R8&list=PLltVQYLz1BMBUgyhxZFA31of-EKjazC8G&index=2
 
